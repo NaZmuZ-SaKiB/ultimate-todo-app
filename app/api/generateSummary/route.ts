@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 
 export const POST = async (req: Request) => {
   const { todos } = await req.json();
-  log(todos);
   const response = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     temperature: 0.8,

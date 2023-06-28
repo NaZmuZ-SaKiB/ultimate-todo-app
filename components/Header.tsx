@@ -6,6 +6,7 @@ import Avatar from "react-avatar";
 import { useBoardStore } from "@/store/BoardStore";
 import { useEffect, useState } from "react";
 import fetchSuggestion from "@/lib/fetchSuggestion";
+import fetchFakeSuggestion from "@/lib/fetchFakeSuggestion";
 
 const Header = () => {
   const [board, searchString, setSearchString] = useBoardStore((state) => [
@@ -26,8 +27,9 @@ const Header = () => {
     };
 
     fetchSuggestionFunc()
-      .catch((error) => {
-        console.log(error);
+      .catch(async () => {
+        const suggestion = await fetchFakeSuggestion(board);
+        setSuggestion(suggestion);
       })
       .finally(() => setLoading(false));
   }, [board]);
